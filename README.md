@@ -207,7 +207,7 @@ MIT
 
 ## ✨ Автор
 
-**Ваше имя** – [GitHub](https://github.com/your-username)
+Сергей – [GitHub](https://github.com/Duhast163rus/)
 
 ---
 

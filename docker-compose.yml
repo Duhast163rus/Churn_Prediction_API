@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  api:
+    build: .
+    container_name: churn-api
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./mlruns:/app/mlruns
+      - ./mlflow.db:/app/mlflow.db
+    environment:
+      - MLFLOW_ALLOW_FILE_STORE=true
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000
+
+  dashboard:
+    build: .
+    container_name: churn-dashboard
+    ports:
+      - "8501:8501"
+    depends_on:
+      - api
+    environment:
+      - API_URL=http://api:8000
+      - MLFLOW_ALLOW_FILE_STORE=true
+    command: streamlit run dashboard.py --server.port 8501 --server.address 0.0.0.0

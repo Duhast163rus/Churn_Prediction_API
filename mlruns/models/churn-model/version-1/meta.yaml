@@ -1,0 +1,16 @@
+creation_timestamp: 1782245833226
+current_stage: Production
+deployment_job_state: null
+description: null
+last_updated_timestamp: 1782245833277
+model_id: null
+name: churn-model
+run_id: null
+run_link: null
+source: file:///c:\Users\duhas\Final_work\mlruns\1\models\m-0cb1c91f36f4478b893888998335c93d\artifacts
+status: READY
+status_message: null
+storage_location: file:///c:\Users\duhas\Final_work\mlruns\1\models\m-0cb1c91f36f4478b893888998335c93d\artifacts
+user_id: null
+version: 1
+workspace: default

@@ -13,6 +13,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY app/ ./app/
 COPY tests/ ./tests/
 COPY mlruns/ ./mlruns/
+COPY dashboard.py .
 
 EXPOSE 8000
 

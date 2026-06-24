@@ -17,7 +17,8 @@ VALID_PAYLOAD = {
     "tenure": 1,
     "gender": "Female",
     "age": 30,
-    "MonthlyCharges": 29.85
+    "MonthlyCharges": 29.85,
+    "contract": "Month-to-month"
 }
 
 def test_health(client):
@@ -25,7 +26,7 @@ def test_health(client):
     assert response.status_code == 200
     data = response.json()
     assert data["status"] == "ok"
-    assert data["model_version"] == "churn-model/Production"
+    assert data["model_version"] == "churn-model/best"
 
 def test_predict_valid(client):
     response = client.post("/predict", json=VALID_PAYLOAD)

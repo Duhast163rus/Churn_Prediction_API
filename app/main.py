@@ -45,6 +45,10 @@ class ClientFeatures(BaseModel):
     gender: str = Field(...)
     age: int = Field(..., ge=0, le=120)
     MonthlyCharges: float = Field(..., ge=0)
+    contract: str = Field(
+        default="Month-to-month",
+        description="Тип контракта (Month-to-month / One year / Two year)"
+    )
 
     @field_validator("gender")
     def validate_gender(cls, v):
@@ -55,6 +59,13 @@ class ClientFeatures(BaseModel):
         if v in ("Женский", "женский", "Ж", "ж"):
             return "Female"
         raise ValueError("gender must be 'Male', 'Female', 'Мужской' or 'Женский'")
+    
+    @field_validator("contract")
+    def validate_contract(cls, v):
+        allowed = {"Month-to-month", "One year", "Two year"}
+        if v not in allowed:
+            raise ValueError(f"contract must be one of {allowed}")
+        return v
 
 # ---------- Lifespan ----------
 @asynccontextmanager
@@ -107,6 +118,7 @@ async def predict(features: ClientFeatures):
     full_dict["MonthlyCharges"] = input_dict["MonthlyCharges"]
     full_dict["SeniorCitizen"] = 1 if input_dict["age"] >= 65 else 0
     full_dict["TotalCharges"] = input_dict["tenure"] * input_dict["MonthlyCharges"]
+    full_dict["Contract"] = input_dict.get("contract", DEFAULT_VALUES["Contract"])
 
     input_df = pd.DataFrame([full_dict])
     model = app.state.model

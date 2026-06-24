@@ -24,7 +24,9 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run tests
-        run: pytest tests/ -v
+        run: |
+            export PYTHONPATH=$PYTHONPATH:$(pwd)
+            pytest tests/ -v
 
   build-and-push:
     needs: test  # запускаем только если тесты прошли
